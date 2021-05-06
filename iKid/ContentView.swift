@@ -45,7 +45,7 @@ struct ContentView: View {
                     
                 }
             }
-        }.onRotate { newOrientation in
+        }.frame(width: UIScreen.main.bounds.width-20, alignment: .center).onRotate { newOrientation in
             orientation = newOrientation
         }
     }
