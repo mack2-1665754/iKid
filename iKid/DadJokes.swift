@@ -11,6 +11,7 @@ import SwiftUI
 struct DadJokes: View {
     @EnvironmentObject var jokeItemStorage: JokeItemStorage
     @State var jokeNum = 0
+    @State var answerViewed = false
     var jokeSection: [JokeItem]
     
     init(_ jokeSection: [JokeItem]) {
@@ -20,18 +21,39 @@ struct DadJokes: View {
     var body: some View {
 
         VStack {
-            Text(self.jokeSection[self.jokeNum].question).padding()
-            Text(self.jokeSection[self.jokeNum].answer).padding()
             
-            Button(action: {
-                if jokeNum < self.jokeSection.count - 1 {
-                    self.jokeNum += 1
-                } else {
-                    self.jokeNum = 0
+            if (self.answerViewed) {
+                Text(self.jokeSection[self.jokeNum].answer).padding()
+                Button(action: {
+                    if jokeNum < self.jokeSection.count - 1 {
+                        self.jokeNum += 1
+                    } else {
+                        self.jokeNum = 0
+                    }
+                    self.answerViewed = !self.answerViewed
+                }) {
+                    Text("Next Joke").padding()
                 }
-            }) {
-                Text("Next Joke").padding()
+            } else {
+                Text(self.jokeSection[self.jokeNum].question).padding()
+                Button(action: {
+                    self.answerViewed = !self.answerViewed
+                }) {
+                    Text("View Answer").padding()
+                }
             }
+//            Text(self.jokeSection[self.jokeNum].question).padding()
+//            Text(self.jokeSection[self.jokeNum].answer).padding()
+//
+//            Button(action: {
+//                if jokeNum < self.jokeSection.count - 1 {
+//                    self.jokeNum += 1
+//                } else {
+//                    self.jokeNum = 0
+//                }
+//            }) {
+//                Text("Next Joke").padding()
+//            }
         }
     }
 }
